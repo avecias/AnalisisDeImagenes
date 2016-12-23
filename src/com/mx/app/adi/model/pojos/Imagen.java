@@ -1,5 +1,5 @@
 
-package app.modelo.entidad;
+package com.mx.app.adi.model.pojos;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;

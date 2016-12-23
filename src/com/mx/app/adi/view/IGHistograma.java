@@ -1,8 +1,8 @@
 
-package app.vista;
+package com.mx.app.adi.view;
 
 import app.controlador.HistogramCreador;
-import app.modelo.entidad.Imagen;
+import com.mx.app.adi.model.pojos.Imagen;
 import app.modelo.histograma.Histograma;
 import java.awt.Color;
 import javax.swing.ImageIcon;

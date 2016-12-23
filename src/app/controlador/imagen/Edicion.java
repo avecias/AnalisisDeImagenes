@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import app.modelo.ruido.Ruido;
 import app.modelo.basicas.LogicaAritmetica;
 import app.modelo.basicas.TransformacionBasica;
-import app.modelo.entidad.Imagen;
+import com.mx.app.adi.model.pojos.Imagen;
 
 public class Edicion {
     

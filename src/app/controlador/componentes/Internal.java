@@ -1,6 +1,6 @@
 package app.controlador.componentes;
 
-import app.modelo.entidad.Imagen;
+import com.mx.app.adi.model.pojos.Imagen;
 import java.awt.FlowLayout;
 import java.awt.event.ContainerEvent;
 import java.util.ArrayList;

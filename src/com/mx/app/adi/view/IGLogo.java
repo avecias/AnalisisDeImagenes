@@ -1,10 +1,10 @@
-package app.vista;
+package com.mx.app.adi.view;
 
 public class IGLogo extends javax.swing.JFrame {
 
     public class BarraEstado extends Thread {
 
-        private IGLogo iGLogo;
+        private final IGLogo iGLogo;
 
         private BarraEstado(IGLogo iGLogo) {
             this.iGLogo = iGLogo;
@@ -36,12 +36,15 @@ public class IGLogo extends javax.swing.JFrame {
 
         imagenLogo = new javax.swing.JLabel();
         barra = new javax.swing.JProgressBar();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Logo"); // NOI18N
         setUndecorated(true);
 
         imagenLogo.setText("Analisis de Imagen");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mx/app/imagenes/Logo.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,18 +53,23 @@ public class IGLogo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(imagenLogo))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(imagenLogo)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(imagenLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,5 +97,6 @@ public class IGLogo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar barra;
     private javax.swing.JLabel imagenLogo;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

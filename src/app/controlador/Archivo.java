@@ -1,6 +1,6 @@
 package app.controlador;
 
-import app.modelo.entidad.Imagen;
+import com.mx.app.adi.model.pojos.Imagen;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

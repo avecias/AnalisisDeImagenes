@@ -1,5 +1,5 @@
 
-package app.vista;
+package com.mx.app.adi.view;
 
 public class IGAcercaDe extends javax.swing.JFrame {
 

@@ -3,14 +3,14 @@
  operaciones matematicas y logicas
  operaciones con matrices para el analisis de las imagenes
  */
-package app.vista;
+package com.mx.app.adi.view;
 
 import app.controlador.imagen.Edicion;
 import app.controlador.imagen.Filtros;
 import app.controlador.Archivo;
 import app.controlador.componentes.Internal;
 import app.controlador.imagen.Morfologia;
-import app.modelo.entidad.Imagen;
+import com.mx.app.adi.model.pojos.Imagen;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
