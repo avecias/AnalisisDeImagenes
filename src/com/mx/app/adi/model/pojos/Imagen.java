@@ -1,6 +1,7 @@
 
 package com.mx.app.adi.model.pojos;
 
+import com.mx.app.adi.model.components.WindowInternal;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
@@ -9,23 +10,18 @@ public class Imagen{
     private int idImagen;
     private String nombre;
     private String direccion;
-    private BufferedImage bfImagen;
+    private BufferedImage bufferedImage;
+    private WindowInternal windowInternal;
 
-    public Imagen(int idImagen, String nombre, String direccion, BufferedImage bfImagen) {
+    public Imagen() {
+    }
+
+    public Imagen(int idImagen, String nombre, String direccion, BufferedImage bufferedImage, WindowInternal windowInternal) {
         this.idImagen = idImagen;
         this.nombre = nombre;
         this.direccion = direccion;
-        this.bfImagen = bfImagen;
-    }
-
-    public Imagen(BufferedImage bfImagen) {
-        this.bfImagen = bfImagen;
-    }
-
-    public Imagen(int idImagen, String nombre, BufferedImage bfImagen) {
-        this.idImagen = idImagen;
-        this.nombre = nombre;
-        this.bfImagen = bfImagen;
+        this.bufferedImage = bufferedImage;
+        this.windowInternal = windowInternal;
     }
 
     public int getIdImagen() {
@@ -52,20 +48,30 @@ public class Imagen{
         this.direccion = direccion;
     }
 
-    public BufferedImage getBfImagen() {
-        return bfImagen;
+    public BufferedImage getBufferedImage() {
+        return bufferedImage;
     }
 
-    public void setBfImagen(BufferedImage bfImagen) {
-        this.bfImagen = bfImagen;
+    public void setBufferedImage(BufferedImage bufferedImage) {
+        this.bufferedImage = bufferedImage;
     }
 
+    public WindowInternal getWindowInternal() {
+        return windowInternal;
+    }
+
+    public void setWindowInternal(WindowInternal windowInternal) {
+        this.windowInternal = windowInternal;
+    }
+    
+    
+    
     @Override
     public String toString() {
         String imagenMatriz = new String();
-        for (int i = 0; i < bfImagen.getHeight(); i++) {
-            for (int j = 0; j < bfImagen.getWidth(); j++) {
-                Color color = new Color(bfImagen.getRGB(j, i));
+        for (int i = 0; i < bufferedImage.getHeight(); i++) {
+            for (int j = 0; j < bufferedImage.getWidth(); j++) {
+                Color color = new Color(bufferedImage.getRGB(j, i));
                 imagenMatriz += "[R: " + color.getRed() + ", G: " + color.getGreen() + ", B: " + color.getBlue() + "] ";
             }
             imagenMatriz += "\n";

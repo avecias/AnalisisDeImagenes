@@ -5,28 +5,29 @@
  */
 package com.mx.app.adi.view;
 
-import app.controlador.imagen.Edicion;
-import app.controlador.imagen.Filtros;
-import app.controlador.Archivo;
-import app.controlador.componentes.Internal;
-import app.controlador.imagen.Morfologia;
+import com.mx.app.adi.controller.edition.Edicion;
+import com.mx.app.adi.controller.load.LoadFile;
+import com.mx.app.adi.model.components.WindowInternal;
+import com.mx.app.adi.model.entities.Session;
 import com.mx.app.adi.model.pojos.Imagen;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 public class IGPrincipal extends javax.swing.JFrame {
 
-    private final ArrayList<Imagen> imagenesOriginales;
+    private final LoadFile loadFile;
+    private final Session session;
     private final ArrayList<Imagen> imagenes;
     private final Edicion edicion;
-    private Imagen imagen;
     private int idIncremetable;
 
-    public IGPrincipal() {
-        imagenesOriginales = new ArrayList<>();
+    public IGPrincipal(Session session) {
+        this.session = session;
         imagenes = new ArrayList<>();
-        idIncremetable = 0;
         edicion = new Edicion();
+        loadFile = new LoadFile();
         initComponents();
         //componentesInciales(false);
     }
@@ -132,7 +133,7 @@ public class IGPrincipal extends javax.swing.JFrame {
         menuArchivo.setText("Archivo");
 
         menuAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        menuAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/abrir.png"))); // NOI18N
+        menuAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mx/app/imagenes/Folder.png"))); // NOI18N
         menuAbrir.setText("Abrir");
         menuAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +143,7 @@ public class IGPrincipal extends javax.swing.JFrame {
         menuArchivo.add(menuAbrir);
 
         menuGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        menuGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.gif"))); // NOI18N
+        menuGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mx/app/imagenes/Save.png"))); // NOI18N
         menuGuardar.setText("Guardar");
         menuGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +153,7 @@ public class IGPrincipal extends javax.swing.JFrame {
         menuArchivo.add(menuGuardar);
 
         nuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mx/app/imagenes/Add.png"))); // NOI18N
         nuevo.setText("Nueva Imagen");
         nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,7 +163,7 @@ public class IGPrincipal extends javax.swing.JFrame {
         menuArchivo.add(nuevo);
 
         menuReiniciar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        menuReiniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/restart.png"))); // NOI18N
+        menuReiniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mx/app/imagenes/Synchronize.png"))); // NOI18N
         menuReiniciar.setText("Reiniciar");
         menuReiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,7 +173,7 @@ public class IGPrincipal extends javax.swing.JFrame {
         menuArchivo.add(menuReiniciar);
 
         menuSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        menuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar.gif"))); // NOI18N
+        menuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mx/app/imagenes/Log Out.png"))); // NOI18N
         menuSalir.setText("Cerrar");
         menuSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -563,21 +565,13 @@ public class IGPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGuardarActionPerformed
-        // TODO add your handling code here:
-        Archivo.guardarImagen(imagen);
+        // 
+
     }//GEN-LAST:event_menuGuardarActionPerformed
 
     private void menuAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAbrirActionPerformed
-        // TODO add your handling code here:
-        imagen = Archivo.abrirImagen(idIncremetable++);
-        if(imagen == null){
-            return;
-        }
-        imagenes.add(imagen);
-        imagenesOriginales.add(imagen);
-        Internal.nuevaVentana(escritorio, imagen);
-        System.out.println("Cantidad de imagenes" + imagenes.size());
-        System.out.println("Cantidad de imagenes originales" + imagenesOriginales.size());
+        // Abrir una imagen en formato JPGE y PNG
+        loadFile.openImage(++idIncremetable, imagenes, escritorio);
     }//GEN-LAST:event_menuAbrirActionPerformed
 
     private void menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalirActionPerformed
@@ -588,7 +582,7 @@ public class IGPrincipal extends javax.swing.JFrame {
 
     private void menuGrisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGrisActionPerformed
         // TODO add your handling code here:
-        hacerCambios(edicion.grises(imagen));
+        edicion.grises(selected(escritorio));
     }//GEN-LAST:event_menuGrisActionPerformed
 
     private void menuBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBinarioActionPerformed
@@ -609,7 +603,7 @@ public class IGPrincipal extends javax.swing.JFrame {
 
     private void menuVerHistogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVerHistogramaActionPerformed
         // TODO add your handling code here:
-        new IGHistograma(imagen).setVisible(true);
+        new GUIHistogram(selected(escritorio)).setVisible(true);
     }//GEN-LAST:event_menuVerHistogramaActionPerformed
 
     private void menuAditivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAditivoActionPerformed
@@ -702,7 +696,7 @@ public class IGPrincipal extends javax.swing.JFrame {
 
     private void menuReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReiniciarActionPerformed
         //Reiniciar el programa
-        IGPrincipal e = new IGPrincipal();
+        IGPrincipal e = new IGPrincipal(session);
         e.setVisible(true);
         this.setVisible(false);
         this.dispose();
@@ -714,7 +708,7 @@ public class IGPrincipal extends javax.swing.JFrame {
 
     private void ventanaCerrada(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_ventanaCerrada
         // Ventana cerrada en el excritorio
-        imagenes.set( 0, null);
+        imagenes.set(0, null);
     }//GEN-LAST:event_ventanaCerrada
 
     private void menuErosionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuErosionActionPerformed
@@ -747,7 +741,7 @@ public class IGPrincipal extends javax.swing.JFrame {
 
     private void menuAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAcercaActionPerformed
         // TODO add your handling code here:
-        new IGAcercaDe().setVisible(true);
+        new GUIAboutit().setVisible(true);
     }//GEN-LAST:event_menuAcercaActionPerformed
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
@@ -756,16 +750,10 @@ public class IGPrincipal extends javax.swing.JFrame {
 
     private void seleccionar(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seleccionar
         // TODO add your handling code here:
-        System.out.println(evt.getComponent().toString());
-        imagen = imagenes.get(Internal.ventanaSeleccionada(escritorio));
     }//GEN-LAST:event_seleccionar
 
     private void hacerCambios(BufferedImage imagenCambio) {
-        if (otraVentana.isSelected()) {
-            Imagen nuevaImagen = new Imagen(idIncremetable++, "Imagen " + idIncremetable, imagenCambio);
-            Internal.nuevaVentana(escritorio, nuevaImagen);
-        } else {
-        }
+
     }
 
     private void componentesInciales(boolean b) {
@@ -844,4 +832,9 @@ public class IGPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem otraVentana;
     private javax.swing.JPopupMenu.Separator separadorRuido;
     // End of variables declaration//GEN-END:variables
+
+    private Imagen selected(JDesktopPane escritorio) {
+        WindowInternal selectedFrame = (WindowInternal) escritorio.getSelectedFrame();
+        return imagenes.get(selectedFrame.getIdWindowInternal());
+    }
 }
